@@ -11,19 +11,24 @@
  */
 
 function evenVsOdd(number){
-	if (num % 2 === 0) {
+	if (number % 2 === 0) {
 		return true // if number is even will return true
 	} else {
 		return false // if number is odd will return false
 	}
 };
 
+// testing if evenVsOdd function works
+// console.log (evenVsOdd(2));
+// console.log (evenVsOdd(3));
+
 function filterEvens(numbers) {
+	let evenList =[]
 	for (let counter = 0 ; counter < numbers.length ; counter++){
-		if (evenTest(numbers[counter]) === false) {
-		} else {numbers.splice(counter,1)};
+		if (evenVsOdd(numbers[counter]) === false) {
+		} else {evenList.push(numbers[counter])};
 	}
-	return numbers;
+	return evenList;
 };
 
 /**
@@ -38,12 +43,13 @@ function filterEvens(numbers) {
  *
  */
 function filterOdds(numbers) {
+	let oddList =[]
 	for (let counter = 0 ; counter < numbers.length ; counter++){
-		if (evenTest(numbers[counter]) === true) {
-		} else {numbers.splice(counter,1)};
+		if (evenVsOdd(numbers[counter]) === true) {
+		} else {oddList.push(numbers[counter])};
 	}
-	return numbers;
-}
+	return oddList;
+};
 
 /**
  * Receives an array of numbers
@@ -57,9 +63,14 @@ function filterOdds(numbers) {
  */
 function sumOdds(numbers) {
 	let odds = filterOdds(numbers);
-	odds.reduce(function(a, b) {  // lines 60 and 61 including the .reduce function are from StackOverflow; I am not sure how they work
-		return a + b ;
-	}, 0)
+	var sumOfOdds = 0
+	// console.log (odds)
+	for (let counter = 0 ; counter < odds.length ; counter++){
+		// console.log('counter value is: ' + counter);
+		// console.log('sum of odds initial value is: ' + sumOfOdds);
+		sumOfOdds += odds[counter];
+		// console.log('sum of odds final value is: ' + sumOfOdds);
+	} return sumOfOdds
 }
 
 /**
@@ -79,18 +90,43 @@ function sumOdds(numbers) {
  * 
  */
 function makePairs(names) {
-	pairs = []
-	for (let counter = 0 ; counter <= numbers.length ; counter+2){
-		if (counter === 0){
-		pairs[counter] = [names[counter] , names [counter+1]]
-	}; else if (counter < numbers.length && counter !=== numbers.length-1) {
-		pairs[counter-1] = [names[counter] , names [counter+1]]
-	}; else if (counter === numbers.length-1){
-		pairs[counter-1] = [names[counter-1]]
+	let pairList = [];
+	if (evenVsOdd(names.length) === true) {
+		// console.log ('runnin evens')
+		// console.log(pairList);
+		for (var counter = 0 ; counter < names.length ; counter+=2){
+			// console.log('counter value is: ' + counter);
+			if (counter === 0){
+				// console.log('counter value is 0, so...');
+				pairList[counter]=[names[counter], names[counter+1]]
+				// console.log(pairList);
+			} else {
+				// console.log('counter value is not zero, so...')
+				pairList[counter-1]=[names[counter], names[counter+1]]
+				// console.log(pairList);
+			}
+		};
+	} else {
+		// console.log('running odds')
+		// console.log(pairList);
+		let lastElement = names.pop()
+		// console.log('popped last element. length of list is now: ' + names.length);
+		for (var counter = 0 ; counter < names.length ; counter+=2){
+			// console.log('counter value is: ' + counter);
+			if (counter === 0){
+				// console.log('counter value is 0, so...');
+				pairList[counter]=[names[counter], names[counter+1]]
+				// console.log(pairList);
+			} else {
+				// console.log('counter value is not zero, so...')
+				pairList[counter-1]=[names[counter], names[counter+1]]
+				// console.log(pairList);
+			}
+		pairList.push(lastElement)
 	};
-	};
-	};
-
+};
+return pairList;
+};
 /**************************************************
 The following code runs the functions defined above
 ***************************************************/
